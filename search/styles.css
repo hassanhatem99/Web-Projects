@@ -1,0 +1,144 @@
+head, body{
+    background-color: #232323;
+    margin-left: 20px;
+}
+
+
+.header{
+    color: white;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 85px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.u-header{
+    font-size: 20px;
+    text-align: center;
+    margin-left: 200px;
+    color: #146DD2;
+}
+
+
+.form{
+    text-align: center;
+}
+
+.textbox{
+    color: white;
+    font-size: 20px;
+    border-radius: 40px;
+    width: 40%;
+    margin-bottom: 20px;
+    margin-top: 23px;
+    padding: 10px;
+    background-color: #232323;
+    border-color: #D3D3D3;
+}
+
+.textbox:hover{
+    background-color:#464646;
+    border-color: #464646;
+
+
+}
+
+.submit{
+    color:white;
+    background: #464646;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 3px;
+}
+
+.submit:hover{
+    border-color: white;
+}
+
+#google{
+    font-size: 25px;
+    margin: 10px;
+    margin-right: 100%;
+    margin-bottom: 50px;
+    color: white;
+    text-decoration: none;
+}
+
+.link-right, .links{
+    text-align: right;
+    margin-right: 15px;
+    margin-top: 15px;
+    color: white;
+    text-decoration: none;
+}
+
+.link:hover{
+    text-decoration:underline;
+}
+
+.AStitle{
+    color: red;
+    margin-top: 23px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.ASbar{
+    color: white;
+    background-color: #232323;
+    border-color: gray;
+    padding: 5px;
+    width: 90%;
+    margin-right: 100px;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+label.AStext{
+    color: white;
+    font-size: 13px;
+}
+h3.AStext-h{
+    color: white;
+    font-size: 17px;
+}
+
+h2.AStext-h{
+    color: white;
+    font-size: 17px;
+    margin-left: 5px;
+}
+div.AStext{
+    color: white;
+    font-size: 13px;
+    margin-left: 5px;
+    display: flex;
+}
+
+
+#grid1{
+    display: grid;
+    grid-row-gap: 13px;
+    grid-template-columns: 20% 50% 30%;
+    padding-top: 10px;
+    padding-left: 35px;
+
+}
+
+#grid2{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 20% 50% 30%;
+    padding-right: 182px;
+}
+
+hr.solid {
+    margin-bottom: 54px;
+    color: gray
+}
+
+input.btn-primary{
+    width: 150px;
+    margin-left: 90%;
+}
