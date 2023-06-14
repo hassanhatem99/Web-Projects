@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block body %}
+    <ul>
+        {% for Result in Results %}
+        <li> <a href="/wiki/{{ Result }}"> {{ Result }} </a></li>
+        {% endfor %}
+
+        {% if length == 0 %}
+        {{ apology }}
+        {% endif %}
+    </ul>
+{% endblock %}
+
+
+{% block post %}
+<button type="submit" class="btn btn-primary">{{ POST }}</button>
+{% endblock %}
