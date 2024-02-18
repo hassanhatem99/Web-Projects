@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}SocialVerse{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'SocialVerse/styles.css' %}" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <a href="/" style="text-decoration: none;"><strong style="color: purple; font-size: 30px;">SocialVerse</strong></a>
+            <span style="margin-left: 78%;">
+                {% if user.is_authenticated %}
+                    {% if user.prof_pic %}
+                        <a href="{% url 'my_profile' %}">
+                            <img class="pp" src="{{ user.prof_pic.url }}">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'my_profile' %}">
+                            <img class="pp" src="static/SocialVerse/images/default.png">
+                        </a>
+                    {% endif %}
+                {% else %}
+                    Not signed in
+                {% endif %}
+            </span>
+            
+        <br><br>
+        {% block form %}
+        {% endblock %} 
+        <ul class="nav">
+            
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'liked_posts' %}">Liked Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create_post' %}">Create Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'my_profile' %}">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+            {% endif %}    
+        </ul>
+        <hr>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>

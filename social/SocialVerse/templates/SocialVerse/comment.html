@@ -1,0 +1,86 @@
+{% extends "SocialVerse/layout.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block body %}
+<div class="post">
+                
+    {% if post.poster == user %}
+        {% if post.poster.prof_pic %}
+            <a href="/my_profile"><img class="pp" src="{{ post.poster.prof_pic.url }}"></a>
+            <strong><a href="/my_profile">{{ post.poster }}</a></strong>
+        {% else %}
+            <a href="/my_profile"><img class="pp" src="{% static 'SocialVerse/images/default.png' %}"></a>
+            <strong><a href="/my_profile">{{ post.poster }}</a></strong> 
+        {% endif %}  
+    {% else %}   
+        {% if post.poster.prof_pic %} 
+            <a href="/user_profile/{{post.poster}}"><img class="pp" src="{{ post.poster.prof_pic.url }}"></a>
+            <strong><a href="/user_profile/{{post.poster}}">{{ post.poster }}</a></strong>
+        {% else %}
+            <a href="/user_profile/{{post.poster}}"><img class="pp" src="{% static 'SocialVerse/images/default.png' %}"></a>
+            <strong><a href="/user_profile/{{post.poster}}">{{ post.poster }}</a></strong>
+        {% endif %}
+    {% endif %}
+    <small style="color: gray;">{{ post.time_created|custom_localtime|custom_timesince }}</small>
+    <br>
+    <div class="post-caption">
+        {{ post.caption }} 
+    </div>
+    
+    {% if post.images.all %}
+        <div class="carousel-container">
+            <div id="image-carousel-{{ post.id }}" class="carousel slide" data-interval="false" style="height: 300px;">
+                <div class="carousel-inner">
+                    {% for image in post.images.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ image.image.url }}" class="post-image" alt="post Image">
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if post.images.all|length > 1 %}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#image-carousel-{{ post.id }}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#image-carousel-{{ post.id }}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    
+    <br>
+    <div class="post-links">
+        <br>
+        <br>
+        {% if post.id in liked_posts %}
+            <a href="/{{ post.id }}/unlike"><button class="btn btn-primary">👍</button></a>
+        {% else %}
+            <a href="/{{ post.id }}/like"><button class="btn btn-secondary">👍</button></a>
+        {% endif %}
+        <a href="/{{ post.id }}/comment" class="comment-btn"><button class="btn btn-outline-primary">Comment</button></a>  
+    </div>
+
+    <br>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.text }}
+        <br>
+        <button style="margin-left: 434px;" class="btn btn-primary comment-btn" type="submit">⫸</button>            
+    </form>
+    <br>
+
+    <h4>Comments:</h4>
+    {% if not comments %}
+        No comments yet
+    {% endif %}
+    {% for comment in comments %}
+        <strong><a href="/user_profile/{{ comment.commentor }}">{{ comment.commentor }}</a>:</strong> {{ comment.text }} 
+        <small style="color: gray; margin-left: 30px;">{{ comment.time_created|custom_localtime|custom_timesince }}</small>
+        <br><br>
+    {% endfor %}
+</div>
+
+<script src="{% static 'SocialVerse/js/index.js' %}"></script>
+{% endblock %}

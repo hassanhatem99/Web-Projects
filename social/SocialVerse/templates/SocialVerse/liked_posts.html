@@ -1,0 +1,118 @@
+{% extends "SocialVerse/layout.html" %}
+{% load static %}
+{% load custom_filters %}
+
+
+
+{% block body %}
+<div>
+
+
+    <h2>Your Likes</h2>
+            {% for liked_post in liked_posts %}
+            <div id="post-{{ liked_post.post.id }}" class="post">
+                {% if liked_post.post.poster == user %}
+                    {% if liked_post.post.poster.prof_pic %}
+                        <a href="/my_profile"><img class="pp" src="{{ liked_post.post.poster.prof_pic.url }}"></a>
+                        <strong><a href="/my_profile">{{ liked_post.post.poster }}</a></strong>
+                    {% else %}
+                        <a href="/my_profile"><img class="pp" src="{% static 'SocialVerse/images/default.png' %}"></a>
+                        <strong><a href="/my_profile">{{ liked_post.post.poster }}</a></strong>
+                    {% endif %}                        
+                {% else %}
+                    {% if liked_post.post.poster.prof_pic %}
+                        <a href="/user_profile/{{liked_post.post.poster}}"><img class="pp" src="{{ liked_post.post.poster.prof_pic.url }}"></a>
+                        <strong><a href="/user_profile/{{liked_post.post.poster}}">{{ liked_post.post.poster }}</a></strong>
+                    {% else %}
+                        <a href="/user_profile/{{liked_post.post.poster}}"><img class="pp" src="static/SocialVerse/images/default.png"></a>
+                        <strong><a href="/user_profile/{{liked_post.post.poster}}">{{ liked_post.post.poster }}</a></strong> 
+                    {% endif %}                       
+                {% endif %}
+                <small style="color: gray;">{{ liked_post.post.time_created|custom_localtime|custom_timesince }}</small>
+                <br>
+                    <div class="post-caption">
+                       {{ liked_post.post.caption }} 
+                    </div>
+                    {% if liked_post.post.images.all %}
+                        <div class="carousel-container">
+                            <div id="image-carousel-{{ liked_post.post.id }}" class="carousel slide" style="height: 300px;">
+                                <div class="carousel-inner">
+                                    {% for image in liked_post.post.images.all %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <img src="{{ image.image.url }}" class="post-image" alt="post Image">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% if liked_post.post.images.all|length > 1 %}
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#image-carousel-{{ liked_post.post.id }}" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#image-carousel-{{ liked_post.post.id }}" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                
+                <br>
+                    <br> <br>
+                        <a href="/{{ liked_post.post.id }}/unlike"><button class="btn btn-primary">👍</button></a>
+                        <a href="/{{ liked_post.post.id }}/comment" class="comment-btn"><button class="btn btn-outline-primary">Comment</button></a>
+                    <br>
+                </div>
+            {% empty %}
+            Your liked posts will appear here
+            </div>
+            {% endfor %}
+</div>
+
+<script>
+    // Function to store the scroll position in local storage
+    function storeScrollPosition() {
+        localStorage.setItem("watchlistScrollPosition", window.scrollY);
+    }
+
+    // Function to scroll to the stored position
+    function scrollToStoredPosition() {
+        var scrollPosition = localStorage.getItem("watchlistScrollPosition");
+        if (scrollPosition !== null) {
+            window.scrollTo(0, scrollPosition);
+            localStorage.removeItem("watchlistScrollPosition"); // Remove the stored position after scrolling to it
+        }
+    }
+
+    // Attach the storeScrollPosition function to the click event of the "Remove from Watchlist" button
+    document.addEventListener("DOMContentLoaded", function() {
+        var removeButtons = document.querySelectorAll(".remove-watchlist-btn");
+        for (var i = 0; i < removeButtons.length; i++) {
+            removeButtons[i].addEventListener("click", storeScrollPosition);
+        }
+
+        // Scroll to the stored position after the page has fully loaded
+        scrollToStoredPosition();
+    });
+
+    // Continuously store the scroll position as the user scrolls the watchlist
+    document.addEventListener("scroll", storeScrollPosition);
+</script>
+{% endblock %}
+
+
+
+{% block form %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group nav-link">
+            {{search_form}}
+            <button type="submit">{{ search_icon }}</button>
+        </div>
+    </form> 
+{% endblock %}
+
+
+
+
+
+
+

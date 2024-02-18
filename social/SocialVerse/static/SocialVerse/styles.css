@@ -1,0 +1,110 @@
+body {
+    padding: 10px;
+}
+
+.pp{
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.post-detail {
+    display: inline; /* Ensures the <h2> element takes only the necessary width */
+    cursor: pointer; /* Changes the cursor to a pointer on hover */
+    position: relative;
+    z-index: 10;
+}
+
+.post-links {
+    position: relative;
+    z-index: 10;
+}
+
+.post-detail:hover {
+    text-decoration: underline; /* Adds underline on hover */
+}
+
+.post-image{
+    width: 100%;
+    min-height: 250px;
+    max-height: 600px;
+    z-index: 0;
+}
+
+.default-image{
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.post{
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 40px;
+    padding: 10px;
+    padding-bottom: 40px;
+    border: 1px solid gray;
+}
+
+
+.description-preview{
+    margin: 0;
+}
+
+.carousel-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;   
+    top: 100px;
+    
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 80px;
+    height: 50px;
+    background-size: 100% 100%;
+}
+
+.carousel-control-prev {
+    background-color: gold;
+}
+.carousel-control-next {
+    background-color: green;
+}
+
+.carousel-item {
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+.post-image-main{
+    min-width: 400px;
+    min-height: 400px;
+    max-width: 550px;
+    max-height: 550px;
+    position: relative;
+}
+
+
+.drag-over {
+    border: 2px dashed #aaa;
+}
+#image-input-container {
+    width: 800px;
+    min-height: 150px;
+    background-color: #878787;
+}
+
+.post-caption {
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+.comment-btn{
+    margin-left: 29%;
+}
